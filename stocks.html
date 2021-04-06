@@ -1,12 +1,30 @@
 <html>
 <head>
 	<title>ETF's und Aktien</title>
+	<style>
+		body {color: #D3D3D3; background-color: #202020;}
+		a {color: #D3D3D3;}
+		h2 {color: #FF6200;}
+		.button {
+			background-color: #009dff;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			width: 300px;
+		}
+	</style>
 	<script>
 		var etfs = '[\
-			{"name": "iShares DAX",        "url": "https://wertpapiere.ing.de/Investieren/Fonds/DE0005933931"},\
-			{"name": "iShares MSCI World", "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B4L5Y983"},\
-			{"name": "iShares Global Clean Energy", "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B1XNHC34"},\
-			{"name": "iShares MSCI ACWI", "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B6R52259"},\
+			{"name": "iShares DAX",                             "url": "https://wertpapiere.ing.de/Investieren/Fonds/DE0005933931"},\
+			{"name": "iShares MSCI World",                      "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B4L5Y983"},\
+			{"name": "iShares Global Clean Energy",             "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B1XNHC34"},\
+			{"name": "iShares MSCI ACWI",                       "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B6R52259"},\
 			{"name": "UBS-ETF MSCI World Socially Responsible", "url": "https://wertpapiere.ing.de/Investieren/Fonds/LU0629459743"}\
 		]';
 
@@ -28,26 +46,12 @@
 				var link = document.createElement('a');
 				link.setAttribute('href', json[idx].url);
 				link.setAttribute('target', '_blank');
+				link.setAttribute('class', 'button');
 				link.innerHTML = json[idx].name;
 				head.parentNode.insertBefore(link, head.nextSibling);
 				var lbr = document.createElement('br');
 				link.parentNode.insertBefore(lbr, link.nextSibling);
 			}
-		}
-
-		function openAll(data) {
-			var json = JSON.parse(data);
-			for (var idx=0; idx<json.length; idx++){
-				window.open(json[idx].url, ''+idx);
-			}
-		}
-
-		function openStocks() {
-			openAll(stocks);
-		}
-
-		function openEtfs() {
-			openAll(etfs);
 		}
 
 		window.onload = insertAllLinks;
