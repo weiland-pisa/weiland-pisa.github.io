@@ -2,11 +2,11 @@
 	box-sizing: border-box;
 }
 body {
-	color: #D3D3D3; 
+	color: #D3D3D3;
 	background-color: #202020;
 	font-family: "Open Sans",Arial, Helvetica, sans-serif;
 }
-a {
+.button {
 	background-color: #2e8ac7;
 	border: none;
 	color: white;
@@ -19,9 +19,22 @@ a {
 	cursor: pointer;
 	width: 100%;
 }
+.home {
+	color: white;
+	width: 100px;
+	font-size: 1.5em;
+	color: #D3D3D3;
+	padding: 20px;
+}
+.title {
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 15px 5px;
+	color: #d17538;
+}
 @media only screen and (min-width: 600px) {
-	a { 
-		width: 200px;
+	.button { 
+		width: 400px;
 		font-size: 16px;
 	}
 }

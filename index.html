@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<title>Weiland</title>
 	<link rel="stylesheet" href="styles.css">
@@ -7,18 +8,14 @@
 		window.addEventListener("resize", showFrameSize);
 		window.addEventListener("load", showFrameSize);
 		function showFrameSize() {
-			document.getElementById("windowsize").innerHTML = "Window size: <span>" + window.innerWidth + " x " + window.innerHeight + "</span>";
-			document.getElementById("bodysize").innerHTML = "Window size: <span>" + document.body.clientWidth + " x " + document.body.clientHeight + "</span>";
-			document.getElementById("clientsize").innerHTML = "Window size: <span>" + document.documentElement.clientWidth + " x " + document.documentElement.clientHeight + "</span>";
+			document.getElementById("windowsize").innerHTML = "<span>" + window.innerWidth + " x " + window.innerHeight + "</span>";
 		}
 	</script>
 </head>
 <body>
-	<a href="GitHub.html">GitHub</a><br>
-	<a href="stocks.html">Stocks</a><br>
-	<a href="borderlands.html">Borderlands</a><br>
-	<span id="windowsize"></span><br>
-	<span id="bodysize"></span><br>
-	<span id="clientsize"></span>
+	<a href="GitHub.html" class="button">GitHub</a><br>
+	<a href="stocks.html" class="button">Stocks</a><br>
+	<a href="borderlands.html" class="button">Borderlands</a><br>
+	<span id="windowsize" style="font-size: 12px"></span>
 </body>
 </html>

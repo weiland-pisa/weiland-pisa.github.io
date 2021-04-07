@@ -1,13 +1,10 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>ETF's und Aktien</title>
+	<title>ETF's and Stocks</title>
+	<script src="https://kit.fontawesome.com/b0aa154af2.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-		@media only screen and (min-width: 600px) {
-			a { width: 350px; }
-		}		
-	</style>
 	<script>
 		var etfs = '[\
 			{"name": "iShares DAX",                             "url": "https://wertpapiere.ing.de/Investieren/Fonds/DE0005933931"},\
@@ -35,6 +32,7 @@
 				var link = document.createElement('a');
 				link.setAttribute('href', json[idx].url);
 				link.setAttribute('target', '_blank');
+				link.setAttribute('class', 'button');
 				link.innerHTML = json[idx].name;
 				head.parentNode.insertBefore(link, head.nextSibling);
 				var lbr = document.createElement('br');
@@ -46,7 +44,9 @@
 	</script>
 </head>
 <body>
+	<a href="index.html" class="home"><i class="fas fa-home"></i></a><span class="title">ETF's and Stocks</span>
+	<p>
 	<h2 id="etfs">ETF's</h2>
-	<h2 id="stocks">Aktien</h2>
+	<h2 id="stocks">Stocks</h2>
 </body>
 </html>
