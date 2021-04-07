@@ -3,16 +3,22 @@
 	<title>Weiland</title>
 	<link rel="stylesheet" href="styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-		a { width: 100%; font-size: 20px; }
-		@media only screen and (min-width: 600px) {
-			a { width: 200px; font-size: 14px;}
+	<script>
+		window.addEventListener("resize", showFrameSize);
+		window.addEventListener("load", showFrameSize);
+		function showFrameSize() {
+			document.getElementById("windowsize").innerHTML = "Window size: <span>" + window.innerWidth + " x " + window.innerHeight + "</span>";
+			document.getElementById("bodysize").innerHTML = "Window size: <span>" + document.body.clientWidth + " x " + document.body.clientHeight + "</span>";
+			document.getElementById("clientsize").innerHTML = "Window size: <span>" + document.documentElement.clientWidth + " x " + document.documentElement.clientHeight + "</span>";
 		}
-	</style>
+	</script>
 </head>
 <body>
 	<a href="GitHub.html">GitHub</a><br>
 	<a href="stocks.html">Stocks</a><br>
 	<a href="borderlands.html">Borderlands</a><br>
+	<span id="windowsize"></span><br>
+	<span id="bodysize"></span><br>
+	<span id="clientsize"></span>
 </body>
 </html>
