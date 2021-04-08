@@ -1,0 +1,217 @@
+[ {
+  "name" : "audiocollection",
+  "html_url" : "https://github.com/weiland-pisa/audiocollection",
+  "clone_url" : "https://github.com/weiland-pisa/audiocollection.git",
+  "description" : "For managing the audio collection",
+  "private" : true
+}, {
+  "name" : "audioconversion",
+  "html_url" : "https://github.com/weiland-pisa/audioconversion",
+  "clone_url" : "https://github.com/weiland-pisa/audioconversion.git",
+  "description" : "Convert FLAC to MP3 or MP3 to other bitrates",
+  "private" : true
+}, {
+  "name" : "audioutils",
+  "html_url" : "https://github.com/weiland-pisa/audioutils",
+  "clone_url" : "https://github.com/weiland-pisa/audioutils.git",
+  "description" : "Audio utilities",
+  "private" : true
+}, {
+  "name" : "BoardGameCollection",
+  "html_url" : "https://github.com/weiland-pisa/BoardGameCollection",
+  "clone_url" : "https://github.com/weiland-pisa/BoardGameCollection.git",
+  "description" : "PDF generator for my board game collection",
+  "private" : true
+}, {
+  "name" : "Ccn",
+  "html_url" : "https://github.com/weiland-pisa/Ccn",
+  "clone_url" : "https://github.com/weiland-pisa/Ccn.git",
+  "description" : "Cyclomatic complexity for Java",
+  "private" : true
+}, {
+  "name" : "CheckList",
+  "html_url" : "https://github.com/weiland-pisa/CheckList",
+  "clone_url" : "https://github.com/weiland-pisa/CheckList.git",
+  "description" : "A check list / TODO application",
+  "private" : true
+}, {
+  "name" : "Colorizer",
+  "html_url" : "https://github.com/weiland-pisa/Colorizer",
+  "clone_url" : "https://github.com/weiland-pisa/Colorizer.git",
+  "description" : "Kite colorizer",
+  "private" : true
+}, {
+  "name" : "datalist",
+  "html_url" : "https://github.com/weiland-pisa/datalist",
+  "clone_url" : "https://github.com/weiland-pisa/datalist.git",
+  "description" : "A Swing application for showing a dialog with a list",
+  "private" : true
+}, {
+  "name" : "DVDlist",
+  "html_url" : "https://github.com/weiland-pisa/DVDlist",
+  "clone_url" : "https://github.com/weiland-pisa/DVDlist.git",
+  "description" : "DVD list",
+  "private" : true
+}, {
+  "name" : "GitBackup",
+  "html_url" : "https://github.com/weiland-pisa/GitBackup",
+  "clone_url" : "https://github.com/weiland-pisa/GitBackup.git",
+  "description" : "Backup all your GitHub repositories",
+  "private" : true
+}, {
+  "name" : "GonisGeo",
+  "html_url" : "https://github.com/weiland-pisa/GonisGeo",
+  "clone_url" : "https://github.com/weiland-pisa/GonisGeo.git",
+  "description" : "Geo location for Gonis",
+  "private" : true
+}, {
+  "name" : "HandbrakeEncoder",
+  "html_url" : "https://github.com/weiland-pisa/HandbrakeEncoder",
+  "clone_url" : "https://github.com/weiland-pisa/HandbrakeEncoder.git",
+  "description" : "Converts multiple video files with Handbrake to a smaller format",
+  "private" : true
+}, {
+  "name" : "HexColor",
+  "html_url" : "https://github.com/weiland-pisa/HexColor",
+  "clone_url" : "https://github.com/weiland-pisa/HexColor.git",
+  "description" : "Preview hexadecimal color values",
+  "private" : true
+}, {
+  "name" : "IcarexShuffle",
+  "html_url" : "https://github.com/weiland-pisa/IcarexShuffle",
+  "clone_url" : "https://github.com/weiland-pisa/IcarexShuffle.git",
+  "description" : "Randomizer for Icarex colors",
+  "private" : true
+}, {
+  "name" : "imagetools",
+  "html_url" : "https://github.com/weiland-pisa/imagetools",
+  "clone_url" : "https://github.com/weiland-pisa/imagetools.git",
+  "description" : "Photo utilities",
+  "private" : true
+}, {
+  "name" : "LocalHostTest",
+  "html_url" : "https://github.com/weiland-pisa/LocalHostTest",
+  "clone_url" : "https://github.com/weiland-pisa/LocalHostTest.git",
+  "description" : "Test program for the localhost resolution",
+  "private" : true
+}, {
+  "name" : "MavenStarter",
+  "html_url" : "https://github.com/weiland-pisa/MavenStarter",
+  "clone_url" : "https://github.com/weiland-pisa/MavenStarter.git",
+  "description" : "GUI for running various Maven commands",
+  "private" : true
+}, {
+  "name" : "migrate",
+  "html_url" : "https://github.com/weiland-pisa/migrate",
+  "clone_url" : "https://github.com/weiland-pisa/migrate.git",
+  "description" : "Migration from Subversion to Git. Info files and backups of old projects.",
+  "private" : true
+}, {
+  "name" : "mp3tray",
+  "html_url" : "https://github.com/weiland-pisa/mp3tray",
+  "clone_url" : "https://github.com/weiland-pisa/mp3tray.git",
+  "description" : "Tray icon for the MP3 server",
+  "private" : true
+}, {
+  "name" : "mp3_srv",
+  "html_url" : "https://github.com/weiland-pisa/mp3_srv",
+  "clone_url" : "https://github.com/weiland-pisa/mp3_srv.git",
+  "description" : "MP3 server",
+  "private" : true
+}, {
+  "name" : "PaceTime",
+  "html_url" : "https://github.com/weiland-pisa/PaceTime",
+  "clone_url" : "https://github.com/weiland-pisa/PaceTime.git",
+  "description" : "Calculator for running time and pace",
+  "private" : true
+}, {
+  "name" : "PasswordGenerator",
+  "html_url" : "https://github.com/weiland-pisa/PasswordGenerator",
+  "clone_url" : "https://github.com/weiland-pisa/PasswordGenerator.git",
+  "description" : "Password generator",
+  "private" : true
+}, {
+  "name" : "PhotoSizes",
+  "html_url" : "https://github.com/weiland-pisa/PhotoSizes",
+  "clone_url" : "https://github.com/weiland-pisa/PhotoSizes.git",
+  "description" : "Summarize the disc usage of a folder with photos",
+  "private" : true
+}, {
+  "name" : "PosterImage",
+  "html_url" : "https://github.com/weiland-pisa/PosterImage",
+  "clone_url" : "https://github.com/weiland-pisa/PosterImage.git",
+  "description" : "Split a large image into DIN A4",
+  "private" : true
+}, {
+  "name" : "PsaDia",
+  "html_url" : "https://github.com/weiland-pisa/PsaDia",
+  "clone_url" : "https://github.com/weiland-pisa/PsaDia.git",
+  "description" : "Generates diagrams with Jfreechart",
+  "private" : true
+}, {
+  "name" : "psc_srv",
+  "html_url" : "https://github.com/weiland-pisa/psc_srv",
+  "clone_url" : "https://github.com/weiland-pisa/psc_srv.git",
+  "description" : "PiSA cubes server. Modified for the Derby database",
+  "private" : true
+}, {
+  "name" : "RAWsync",
+  "html_url" : "https://github.com/weiland-pisa/RAWsync",
+  "clone_url" : "https://github.com/weiland-pisa/RAWsync.git",
+  "description" : "Sync RAW and JPG images",
+  "private" : true
+}, {
+  "name" : "RegExTest",
+  "html_url" : "https://github.com/weiland-pisa/RegExTest",
+  "clone_url" : "https://github.com/weiland-pisa/RegExTest.git",
+  "description" : "Regular expression tester",
+  "private" : true
+}, {
+  "name" : "sotm-pdf",
+  "html_url" : "https://github.com/weiland-pisa/sotm-pdf",
+  "clone_url" : "https://github.com/weiland-pisa/sotm-pdf.git",
+  "description" : "Sentinels of the multiverse - PDF generator",
+  "private" : true
+}, {
+  "name" : "StockChart",
+  "html_url" : "https://github.com/weiland-pisa/StockChart",
+  "clone_url" : "https://github.com/weiland-pisa/StockChart.git",
+  "description" : "A stock chart",
+  "private" : true
+}, {
+  "name" : "TabCopy",
+  "html_url" : "https://github.com/weiland-pisa/TabCopy",
+  "clone_url" : "https://github.com/weiland-pisa/TabCopy.git",
+  "description" : "Copy guitar tabs to another directory",
+  "private" : true
+}, {
+  "name" : "TabSearch",
+  "html_url" : "https://github.com/weiland-pisa/TabSearch",
+  "clone_url" : "https://github.com/weiland-pisa/TabSearch.git",
+  "description" : "Guitar tab library",
+  "private" : true
+}, {
+  "name" : "Timer",
+  "html_url" : "https://github.com/weiland-pisa/Timer",
+  "clone_url" : "https://github.com/weiland-pisa/Timer.git",
+  "description" : "A tea timer",
+  "private" : true
+}, {
+  "name" : "utils",
+  "html_url" : "https://github.com/weiland-pisa/utils",
+  "clone_url" : "https://github.com/weiland-pisa/utils.git",
+  "description" : "Utilities for several projects",
+  "private" : true
+}, {
+  "name" : "weiland-pisa.github.io",
+  "html_url" : "https://github.com/weiland-pisa/weiland-pisa.github.io",
+  "clone_url" : "https://github.com/weiland-pisa/weiland-pisa.github.io.git",
+  "description" : null,
+  "private" : false
+}, {
+  "name" : "WorkingTime",
+  "html_url" : "https://github.com/weiland-pisa/WorkingTime",
+  "clone_url" : "https://github.com/weiland-pisa/WorkingTime.git",
+  "description" : "A time tracking tool for your daily working time",
+  "private" : true
+} ]

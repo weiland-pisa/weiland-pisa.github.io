@@ -1,240 +1,93 @@
 <html>
  <head>
   <title>GitHub: weiland-pisa</title>
-  <script>function copyToClipboard(id) { var r = document.createRange(); var e = document.getElementById(id); r.selectNode(e); window.getSelection().removeAllRanges(); window.getSelection().addRange(r); document.execCommand('copy'); window.getSelection().removeAllRanges(); alert('Copied "'+e.innerText+'" to the clipboard'); }</script>
-  <style>table { border-collapse: collapse; } td { border: 1px solid; padding: 5px; }</style>
+	<script>
+		function copyToClipboard(id) { 
+		var r = document.createRange(); 
+		var e = document.getElementById(id); 
+		r.selectNode(e); 
+		window.getSelection().removeAllRanges(); 
+		window.getSelection().addRange(r); 
+		document.execCommand('copy'); 
+		window.getSelection().removeAllRanges(); 
+		alert('Copied "'+e.innerText+'" to the clipboard'); 
+		}
+
+		function readJson() {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+			  if (this.readyState == 4 && this.status == 200) {
+				var json = JSON.parse(this.responseText);
+				var dummy = document.getElementById("dummy");
+				for (var idx=json.length-1; idx>=0; idx--){
+					var tr = document.createElement('tr');
+					dummy.parentNode.insertBefore(tr, dummy.nextSibling);
+					var td = document.createElement('td');
+					td.setAttribute('style', 'border: 0px');
+					
+					var span = document.createElement('span');
+					span.setAttribute('class', 'material-icons');
+					if (json[idx].private) {
+						span.innerHTML = 'language';
+						span.setAttribute('style', 'color: #F44336');
+					} else {
+						span.innerHTML = 'lock';
+						span.setAttribute('style', 'color: #4CAF50');
+					}
+					td.appendChild(span);
+					tr.appendChild(td);
+					td = document.createElement('td');
+					var a = document.createElement('a');
+					a.setAttribute('href', json[idx].html_url);
+					a.setAttribute('target', '_blank');
+					a.innerHTML = json[idx].name;
+					td.appendChild(a);
+					tr.appendChild(td);
+					td = document.createElement('td');
+					var id = 'git-'+json[idx].name;
+					var button = document.createElement('button');
+					button.setAttribute('onclick', "copyToClipboard('"+id+"')");
+					button.setAttribute('id', id);
+					button.innerHTML = json[idx].clone_url;
+					td.appendChild(button);
+					tr.appendChild(td);
+					td = document.createElement('td');
+					if (json[idx].description) {
+						td.innerHTML = json[idx].description;
+					} else {
+						td.innerHTML = '&nbsp;';
+					}
+					tr.appendChild(td);
+				}
+				dummy.remove();
+			  }
+			};
+			xmlhttp.open("GET", "GitHub.json", true);
+			xmlhttp.send();
+		}
+
+		window.onload = readJson;
+
+	</script>
+  <style>
+	table { border-collapse: collapse; } 
+	td { border: 1px solid; padding: 5px; color: lightgray;} 
+	button {color: black; background-color: #AAAAAA;} 
+	a {color: lightgray;}
+	</style>
+		<link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
  </head>
  <body>
-  <h1><a href="https://www.github.com/weiland-pisa" target="_blank">weiland-pisa</a></h1><b>6.4.2021 12:44</b>
+  <h1><a href="https://www.github.com/weiland-pisa" target="_blank">weiland-pisa</a></h1>
   <table>
    <tr>
+    <th style="text-align:left"></th>
     <th style="text-align:left">Name</th>
     <th style="text-align:left">Clone URL</th>
-    <th style="text-align:left">Visibility</th>
     <th style="text-align:left">Description</th>
    </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/audiocollection" target="_blank">audiocollection</a></td>
-    <td><button onclick="copyToClipboard('git-audiocollection')" id="git-audiocollection">https://github.com/weiland-pisa/audiocollection.git</button></td>
-    <td>private</td>
-    <td>For managing the audio collection</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/audioconversion" target="_blank">audioconversion</a></td>
-    <td><button onclick="copyToClipboard('git-audioconversion')" id="git-audioconversion">https://github.com/weiland-pisa/audioconversion.git</button></td>
-    <td>private</td>
-    <td>Convert FLAC to MP3 or MP3 to other bitrates</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/audioutils" target="_blank">audioutils</a></td>
-    <td><button onclick="copyToClipboard('git-audioutils')" id="git-audioutils">https://github.com/weiland-pisa/audioutils.git</button></td>
-    <td>private</td>
-    <td>Audio utilities</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/BoardGameCollection" target="_blank">BoardGameCollection</a></td>
-    <td><button onclick="copyToClipboard('git-BoardGameCollection')" id="git-BoardGameCollection">https://github.com/weiland-pisa/BoardGameCollection.git</button></td>
-    <td>private</td>
-    <td>PDF generator for my board game collection</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/Ccn" target="_blank">Ccn</a></td>
-    <td><button onclick="copyToClipboard('git-Ccn')" id="git-Ccn">https://github.com/weiland-pisa/Ccn.git</button></td>
-    <td>private</td>
-    <td>Cyclomatic complexity for Java</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/CheckList" target="_blank">CheckList</a></td>
-    <td><button onclick="copyToClipboard('git-CheckList')" id="git-CheckList">https://github.com/weiland-pisa/CheckList.git</button></td>
-    <td>private</td>
-    <td>A check list / TODO application</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/Colorizer" target="_blank">Colorizer</a></td>
-    <td><button onclick="copyToClipboard('git-Colorizer')" id="git-Colorizer">https://github.com/weiland-pisa/Colorizer.git</button></td>
-    <td>private</td>
-    <td>Kite colorizer</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/datalist" target="_blank">datalist</a></td>
-    <td><button onclick="copyToClipboard('git-datalist')" id="git-datalist">https://github.com/weiland-pisa/datalist.git</button></td>
-    <td>private</td>
-    <td>A Swing application for showing a dialog with a list</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/DVDlist" target="_blank">DVDlist</a></td>
-    <td><button onclick="copyToClipboard('git-DVDlist')" id="git-DVDlist">https://github.com/weiland-pisa/DVDlist.git</button></td>
-    <td>private</td>
-    <td>DVD list</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/GitBackup" target="_blank">GitBackup</a></td>
-    <td><button onclick="copyToClipboard('git-GitBackup')" id="git-GitBackup">https://github.com/weiland-pisa/GitBackup.git</button></td>
-    <td>private</td>
-    <td>Backup all your GitHub repositories</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/GonisGeo" target="_blank">GonisGeo</a></td>
-    <td><button onclick="copyToClipboard('git-GonisGeo')" id="git-GonisGeo">https://github.com/weiland-pisa/GonisGeo.git</button></td>
-    <td>private</td>
-    <td>Geo location for Gonis</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/HandbrakeEncoder" target="_blank">HandbrakeEncoder</a></td>
-    <td><button onclick="copyToClipboard('git-HandbrakeEncoder')" id="git-HandbrakeEncoder">https://github.com/weiland-pisa/HandbrakeEncoder.git</button></td>
-    <td>private</td>
-    <td>Converts multiple video files with Handbrake to a smaller format</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/hello-world-private" target="_blank">hello-world-private</a></td>
-    <td><button onclick="copyToClipboard('git-hello-world-private')" id="git-hello-world-private">https://github.com/weiland-pisa/hello-world-private.git</button></td>
-    <td>private</td>
-    <td>Test </td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/HexColor" target="_blank">HexColor</a></td>
-    <td><button onclick="copyToClipboard('git-HexColor')" id="git-HexColor">https://github.com/weiland-pisa/HexColor.git</button></td>
-    <td>private</td>
-    <td>Preview hexadecimal color values</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/IcarexShuffle" target="_blank">IcarexShuffle</a></td>
-    <td><button onclick="copyToClipboard('git-IcarexShuffle')" id="git-IcarexShuffle">https://github.com/weiland-pisa/IcarexShuffle.git</button></td>
-    <td>private</td>
-    <td>Randomizer for Icarex colors</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/imagetools" target="_blank">imagetools</a></td>
-    <td><button onclick="copyToClipboard('git-imagetools')" id="git-imagetools">https://github.com/weiland-pisa/imagetools.git</button></td>
-    <td>private</td>
-    <td>Photo utilities</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/LocalHostTest" target="_blank">LocalHostTest</a></td>
-    <td><button onclick="copyToClipboard('git-LocalHostTest')" id="git-LocalHostTest">https://github.com/weiland-pisa/LocalHostTest.git</button></td>
-    <td>private</td>
-    <td>Test program for the localhost resolution</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/MavenStarter" target="_blank">MavenStarter</a></td>
-    <td><button onclick="copyToClipboard('git-MavenStarter')" id="git-MavenStarter">https://github.com/weiland-pisa/MavenStarter.git</button></td>
-    <td>private</td>
-    <td>GUI for running various Maven commands</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/migrate" target="_blank">migrate</a></td>
-    <td><button onclick="copyToClipboard('git-migrate')" id="git-migrate">https://github.com/weiland-pisa/migrate.git</button></td>
-    <td>private</td>
-    <td>Migration from Subversion to Git. Info files and backups of old projects.</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/mp3tray" target="_blank">mp3tray</a></td>
-    <td><button onclick="copyToClipboard('git-mp3tray')" id="git-mp3tray">https://github.com/weiland-pisa/mp3tray.git</button></td>
-    <td>private</td>
-    <td>Tray icon for the MP3 server</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/mp3_srv" target="_blank">mp3_srv</a></td>
-    <td><button onclick="copyToClipboard('git-mp3_srv')" id="git-mp3_srv">https://github.com/weiland-pisa/mp3_srv.git</button></td>
-    <td>private</td>
-    <td>MP3 server</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/PaceTime" target="_blank">PaceTime</a></td>
-    <td><button onclick="copyToClipboard('git-PaceTime')" id="git-PaceTime">https://github.com/weiland-pisa/PaceTime.git</button></td>
-    <td>private</td>
-    <td>Calculator for running time and pace</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/PasswordGenerator" target="_blank">PasswordGenerator</a></td>
-    <td><button onclick="copyToClipboard('git-PasswordGenerator')" id="git-PasswordGenerator">https://github.com/weiland-pisa/PasswordGenerator.git</button></td>
-    <td>private</td>
-    <td>Password generator</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/PhotoSizes" target="_blank">PhotoSizes</a></td>
-    <td><button onclick="copyToClipboard('git-PhotoSizes')" id="git-PhotoSizes">https://github.com/weiland-pisa/PhotoSizes.git</button></td>
-    <td>private</td>
-    <td>Summarize the disc usage of a folder with photos</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/PosterImage" target="_blank">PosterImage</a></td>
-    <td><button onclick="copyToClipboard('git-PosterImage')" id="git-PosterImage">https://github.com/weiland-pisa/PosterImage.git</button></td>
-    <td>private</td>
-    <td>Split a large image into DIN A4</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/PsaDia" target="_blank">PsaDia</a></td>
-    <td><button onclick="copyToClipboard('git-PsaDia')" id="git-PsaDia">https://github.com/weiland-pisa/PsaDia.git</button></td>
-    <td>private</td>
-    <td>Generates diagrams with Jfreechart</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/psc_srv" target="_blank">psc_srv</a></td>
-    <td><button onclick="copyToClipboard('git-psc_srv')" id="git-psc_srv">https://github.com/weiland-pisa/psc_srv.git</button></td>
-    <td>private</td>
-    <td>PiSA cubes server. Modified for the Derby database</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/RAWsync" target="_blank">RAWsync</a></td>
-    <td><button onclick="copyToClipboard('git-RAWsync')" id="git-RAWsync">https://github.com/weiland-pisa/RAWsync.git</button></td>
-    <td>private</td>
-    <td>Sync RAW and JPG images</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/RegExTest" target="_blank">RegExTest</a></td>
-    <td><button onclick="copyToClipboard('git-RegExTest')" id="git-RegExTest">https://github.com/weiland-pisa/RegExTest.git</button></td>
-    <td>private</td>
-    <td>Regular expression tester</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/sotm-pdf" target="_blank">sotm-pdf</a></td>
-    <td><button onclick="copyToClipboard('git-sotm-pdf')" id="git-sotm-pdf">https://github.com/weiland-pisa/sotm-pdf.git</button></td>
-    <td>private</td>
-    <td>Sentinels of the multiverse - PDF generator</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/StockChart" target="_blank">StockChart</a></td>
-    <td><button onclick="copyToClipboard('git-StockChart')" id="git-StockChart">https://github.com/weiland-pisa/StockChart.git</button></td>
-    <td>private</td>
-    <td>A stock chart</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/TabCopy" target="_blank">TabCopy</a></td>
-    <td><button onclick="copyToClipboard('git-TabCopy')" id="git-TabCopy">https://github.com/weiland-pisa/TabCopy.git</button></td>
-    <td>private</td>
-    <td>Copy guitar tabs to another directory</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/TabSearch" target="_blank">TabSearch</a></td>
-    <td><button onclick="copyToClipboard('git-TabSearch')" id="git-TabSearch">https://github.com/weiland-pisa/TabSearch.git</button></td>
-    <td>private</td>
-    <td>Guitar tab library</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/Timer" target="_blank">Timer</a></td>
-    <td><button onclick="copyToClipboard('git-Timer')" id="git-Timer">https://github.com/weiland-pisa/Timer.git</button></td>
-    <td>private</td>
-    <td>A tea timer</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/utils" target="_blank">utils</a></td>
-    <td><button onclick="copyToClipboard('git-utils')" id="git-utils">https://github.com/weiland-pisa/utils.git</button></td>
-    <td>private</td>
-    <td>Utilities for several projects</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/weiland-pisa.github.io" target="_blank">weiland-pisa.github.io</a></td>
-    <td><button onclick="copyToClipboard('git-weiland-pisa.github.io')" id="git-weiland-pisa.github.io">https://github.com/weiland-pisa/weiland-pisa.github.io.git</button></td>
-    <td>public</td>
-    <td>&nbsp;</td>
-   </tr>
-   <tr>
-    <td><a href="https://github.com/weiland-pisa/WorkingTime" target="_blank">WorkingTime</a></td>
-    <td><button onclick="copyToClipboard('git-WorkingTime')" id="git-WorkingTime">https://github.com/weiland-pisa/WorkingTime.git</button></td>
-    <td>private</td>
-    <td>A time tracking tool for your daily working time</td>
-   </tr>
+   <tr id="dummy"></tr>
   </table>
  </body>
 </html>
