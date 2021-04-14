@@ -22,9 +22,10 @@
 				for (var idx=json.length-1; idx>=0; idx--){
 					var tr = document.createElement('tr');
 					dummy.parentNode.insertBefore(tr, dummy.nextSibling);
+					
+					// icon
 					var td = document.createElement('td');
 					td.setAttribute('style', 'border: 0px');
-					
 					var span = document.createElement('span');
 					span.setAttribute('class', 'material-icons');
 					if (json[idx].private) {
@@ -36,21 +37,29 @@
 					}
 					td.appendChild(span);
 					tr.appendChild(td);
+					
+					// name
 					td = document.createElement('td');
 					var a = document.createElement('a');
 					a.setAttribute('href', json[idx].html_url);
 					a.setAttribute('target', '_blank');
+					a.setAttribute('class', 'button-small');
 					a.innerHTML = json[idx].name;
 					td.appendChild(a);
 					tr.appendChild(td);
+					
+					// clone URL
 					td = document.createElement('td');
 					var id = 'git-'+json[idx].name;
-					var button = document.createElement('button');
+					var button = document.createElement('a');
 					button.setAttribute('onclick', "copyToClipboard('"+id+"')");
 					button.setAttribute('id', id);
+					button.setAttribute('class', 'button-small');
 					button.innerHTML = json[idx].clone_url;
 					td.appendChild(button);
 					tr.appendChild(td);
+					
+					// description
 					td = document.createElement('td');
 					if (json[idx].description) {
 						td.innerHTML = json[idx].description;
@@ -71,7 +80,7 @@
 	</script>
   <style>
 	table { border-collapse: collapse; } 
-	td { border: 1px solid; padding: 5px; color: lightgray;} 
+	td { border: 0px solid; padding: 3px; color: lightgray;} 
 	button {color: black; background-color: #AAAAAA;} 
 	a {color: lightgray;}
 	</style>
