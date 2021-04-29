@@ -1,0 +1,11 @@
+var etfs = [
+	{"name": "iShares DAX",                             "url": "https://wertpapiere.ing.de/Investieren/Fonds/DE0005933931"},
+	{"name": "iShares MSCI World",                      "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B4L5Y983"},
+	{"name": "UBS-ETF MSCI World Socially Responsible", "url": "https://wertpapiere.ing.de/Investieren/Fonds/LU0629459743"},
+	{"name": "iShares Global Clean Energy",             "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B1XNHC34"}
+];
+var stocks = [
+	{"name": "Apple",         "url": "https://wertpapiere.ing.de/Investieren/Aktie/US0378331005"},
+	{"name": "Ballard Power", "url": "https://wertpapiere.ing.de/Investieren/Aktie/CA0585861085"},
+	{"name": "Plug Power",    "url": "https://wertpapiere.ing.de/Investieren/Aktie/US72919P2020"}
+];

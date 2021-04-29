@@ -7,43 +7,8 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script>
-		var etfs = '[\
-			{"name": "iShares DAX",                             "url": "https://wertpapiere.ing.de/Investieren/Fonds/DE0005933931"},\
-			{"name": "iShares MSCI World",                      "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B4L5Y983"},\
-			{"name": "iShares Global Clean Energy",             "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B1XNHC34"},\
-			{"name": "UBS-ETF MSCI World Socially Responsible", "url": "https://wertpapiere.ing.de/Investieren/Fonds/LU0629459743"}\
-		]';
-		// {"name": "iShares MSCI ACWI",                       "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B6R52259"},\
-
-		var stocks = '[\
-			{"name": "Apple",         "url": "https://wertpapiere.ing.de/Investieren/Aktie/US0378331005"},\
-			{"name": "Ballard Power", "url": "https://wertpapiere.ing.de/Investieren/Aktie/CA0585861085"},\
-			{"name": "Plug Power",    "url": "https://wertpapiere.ing.de/Investieren/Aktie/US72919P2020"}\
-		]';
-
-		function insertAllLinks() {
-			insertLinks(etfs, 'etfs');
-			insertLinks(stocks, 'stocks');
-		}
-		
-		function insertLinks(data, tag) {
-			var json = JSON.parse(data);
-			for (var idx=json.length-1; idx>=0; idx--){
-				var head = document.getElementById(tag);
-				var link = document.createElement('a');
-				link.setAttribute('href', json[idx].url);
-				link.setAttribute('target', '_blank');
-				link.setAttribute('class', 'button');
-				link.innerHTML = json[idx].name;
-				head.parentNode.insertBefore(link, head.nextSibling);
-				var lbr = document.createElement('br');
-				link.parentNode.insertBefore(lbr, link.nextSibling);
-			}
-		}
-
-		window.onload = insertAllLinks;
-	</script>
+	<script src="stocks.json"></script>
+	<script src="stocks.js"></script>
 </head>
 <body>
 	<div class="flex-container">

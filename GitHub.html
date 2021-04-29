@@ -1,6 +1,16 @@
 <html>
  <head>
   <title>GitHub: weiland-pisa</title>
+    <style>
+		table { border-collapse: collapse; } 
+		td { border: 0px solid; padding: 3px; color: lightgray;} 
+		button {color: black; background-color: #AAAAAA;} 
+		a {color: lightgray;}
+	</style>
+	<link rel="stylesheet" href="styles.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script>
 		function copyToClipboard(id) { 
 		var r = document.createRange(); 
@@ -78,25 +88,21 @@
 		window.onload = readJson;
 
 	</script>
-  <style>
-	table { border-collapse: collapse; } 
-	td { border: 0px solid; padding: 3px; color: lightgray;} 
-	button {color: black; background-color: #AAAAAA;} 
-	a {color: lightgray;}
-	</style>
-		<link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
  </head>
- <body>
-  <h1><a href="https://www.github.com/weiland-pisa" target="_blank">weiland-pisa</a></h1>
-  <table>
-   <tr>
-    <th style="text-align:left"></th>
-    <th style="text-align:left">Name</th>
-    <th style="text-align:left">Clone URL</th>
-    <th style="text-align:left">Description</th>
-   </tr>
-   <tr id="dummy"></tr>
-  </table>
- </body>
+	<body>
+		<div class="flex-container">
+			<a href="index.html" class="home material-icons">home</a>
+			<a href="https://www.github.com/weiland-pisa" target="_blank" class="title">GitHub: weiland-pisa</a>
+		</div>
+		<p>
+		<table>
+			<tr>
+				<th style="text-align:left"></th>
+				<th style="text-align:left">Name</th>
+				<th style="text-align:left">Clone URL</th>
+				<th style="text-align:left">Description</th>
+			</tr>
+			<tr id="dummy"></tr>
+		</table>
+	</body>
 </html>
