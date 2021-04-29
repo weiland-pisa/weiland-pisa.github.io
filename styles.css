@@ -32,7 +32,7 @@ body {
 	cursor: pointer;
 	width: 100%;
 }
-.flex-container {
+.flex-title {
 	display: flex;
 	align-items: center;
 }
