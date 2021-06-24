@@ -5,7 +5,6 @@ var etfs = [
 	{"name": "iShares Global Clean Energy",             "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B1XNHC34"}
 ];
 var stocks = [
-	{"name": "Apple",         "url": "https://wertpapiere.ing.de/Investieren/Aktie/US0378331005"},
-	{"name": "Ballard Power", "url": "https://wertpapiere.ing.de/Investieren/Aktie/CA0585861085"},
-	{"name": "Plug Power",    "url": "https://wertpapiere.ing.de/Investieren/Aktie/US72919P2020"}
+	{"name": "Apple", "url": "https://wertpapiere.ing.de/Investieren/Aktie/US0378331005"},
+	{"name": "IVU",   "url": "https://wertpapiere.ing.de/Investieren/Aktie/DE0007448508"}
 ];
