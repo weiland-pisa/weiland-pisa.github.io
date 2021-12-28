@@ -11,30 +11,32 @@ a {
 .flex-row {
   display: flex;
   flex-direction: row;
+  padding: 2px;
+  /*align-items: center;*/
 }
 .flex-item-1 {
   display: flex;
   flex-basis: 30px;
   flex-grow: 0;
-  padding: 5px;
+  padding: 2px;
   margin: 0px;
 }
 .flex-item-2 {
   display: flex;
   flex: 25%;
-  padding: 5px;
+  padding: 2px;
   margin: 0px;
 }
 .flex-item-3 {
   display: flex;
   flex: 25%;
-  padding: 5px;
+  padding: 2px;
   margin: 0px;
 }
 .flex-item-4 {
   display: flex;
   flex: 50%;
-  padding: 5px;
+  padding: 2px;
   margin: 0px;
 }
 @media (max-width: 800px) {
@@ -43,4 +45,8 @@ a {
   .flex-item-2 { flex: 45%; }
   .flex-item-3 { flex: 45%; }
   .flex-item-4 { flex: 100%; margin-left: 10%; }
+}
+@media (max-width: 500px) {
+  .flex-item-2 { flex: 90%; }
+  .flex-item-3 { flex: 100%; margin-left: 10%; }
 }
