@@ -12,7 +12,6 @@ a {
   display: flex;
   flex-direction: row;
   padding: 2px;
-  /*align-items: center;*/
 }
 .flex-item-1 {
   display: flex;
@@ -26,12 +25,14 @@ a {
   flex: 25%;
   padding: 2px;
   margin: 0px;
+  overflow: hidden;
 }
 .flex-item-3 {
   display: flex;
   flex: 25%;
   padding: 2px;
   margin: 0px;
+  overflow: hidden;
 }
 .flex-item-4 {
   display: flex;
