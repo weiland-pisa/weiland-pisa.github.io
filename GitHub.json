@@ -32,6 +32,17 @@
   },
   "private" : true
 }, {
+  "name" : "AutoHotkey",
+  "full_name" : "weiland-pisa/AutoHotkey",
+  "html_url" : "https://github.com/weiland-pisa/AutoHotkey",
+  "clone_url" : "https://github.com/weiland-pisa/AutoHotkey.git",
+  "description" : "Scripts for AutoHotkey",
+  "owner" : {
+    "login" : "weiland-pisa",
+    "html_url" : "https://github.com/weiland-pisa"
+  },
+  "private" : true
+}, {
   "name" : "BoardGameCollection",
   "full_name" : "weiland-pisa/BoardGameCollection",
   "html_url" : "https://github.com/weiland-pisa/BoardGameCollection",
@@ -136,6 +147,17 @@
   "html_url" : "https://github.com/weiland-pisa/GitBackup",
   "clone_url" : "https://github.com/weiland-pisa/GitBackup.git",
   "description" : "Backup all your GitHub repositories",
+  "owner" : {
+    "login" : "weiland-pisa",
+    "html_url" : "https://github.com/weiland-pisa"
+  },
+  "private" : true
+}, {
+  "name" : "GitConfig",
+  "full_name" : "weiland-pisa/GitConfig",
+  "html_url" : "https://github.com/weiland-pisa/GitConfig",
+  "clone_url" : "https://github.com/weiland-pisa/GitConfig.git",
+  "description" : "Show the result of the git config command",
   "owner" : {
     "login" : "weiland-pisa",
     "html_url" : "https://github.com/weiland-pisa"
@@ -356,6 +378,17 @@
   "html_url" : "https://github.com/weiland-pisa/StockChart",
   "clone_url" : "https://github.com/weiland-pisa/StockChart.git",
   "description" : "A stock chart",
+  "owner" : {
+    "login" : "weiland-pisa",
+    "html_url" : "https://github.com/weiland-pisa"
+  },
+  "private" : true
+}, {
+  "name" : "Stromverbrauch",
+  "full_name" : "weiland-pisa/Stromverbrauch",
+  "html_url" : "https://github.com/weiland-pisa/Stromverbrauch",
+  "clone_url" : "https://github.com/weiland-pisa/Stromverbrauch.git",
+  "description" : "Calculates the yearly power consumption",
   "owner" : {
     "login" : "weiland-pisa",
     "html_url" : "https://github.com/weiland-pisa"

@@ -3,7 +3,8 @@ var etfs = [
 	{"name": "UBS-ETF MSCI World Socially Responsible", "url": "https://wertpapiere.ing.de/Investieren/Fonds/LU0629459743"},
 	{"name": "iShares Core S&P 500",                    "url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00B5BMR087"},
 	{"name": "iShares STOXX Europe 600",				"url": "https://wertpapiere.ing.de/Investieren/Fonds/DE0002635307"},
-	{"name": "iShares DAX",                             "url": "https://wertpapiere.ing.de/Investieren/Fonds/DE0005933931"}
+	{"name": "iShares DAX",                             "url": "https://wertpapiere.ing.de/Investieren/Fonds/DE0005933931"},
+	{"name": "iShares Core MSCI Emerging Markets IMI",	"url": "https://wertpapiere.ing.de/Investieren/Fonds/IE00BKM4GZ66"}
 ];
 var stocks = [
 	{"name": "Apple", "url": "https://wertpapiere.ing.de/Investieren/Aktie/US0378331005"},

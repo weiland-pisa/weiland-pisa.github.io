@@ -1,32 +1,46 @@
-a { color: lightgray; height: 100%; padding: 0px; margin: 0px; }
+a { 
+  color: lightgray; 
+  height: 100%; 
+  padding: 0px; 
+  margin: 0px;
+}
 .flex-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
 }
 .flex-item-1 {
+  display: flex;
   flex-basis: 30px;
   flex-grow: 0;
   padding: 5px;
   margin: 0px;
 }
 .flex-item-2 {
+  display: flex;
   flex: 25%;
   padding: 5px;
   margin: 0px;
 }
 .flex-item-3 {
+  display: flex;
   flex: 25%;
   padding: 5px;
   margin: 0px;
 }
 .flex-item-4 {
+  display: flex;
   flex: 50%;
   padding: 5px;
   margin: 0px;
 }
 @media (max-width: 800px) {
+  .flex-row { flex-wrap: wrap; }
   .flex-item-1 { flex: 10%; }
   .flex-item-2 { flex: 45%; }
   .flex-item-3 { flex: 45%; }
-  .flex-item-4 { flex: 100%; }
+  .flex-item-4 { flex: 100%; margin-left: 10%; }
 }

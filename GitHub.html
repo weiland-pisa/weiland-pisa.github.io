@@ -24,7 +24,12 @@
 			  if (this.readyState == 4 && this.status == 200) {
 				var json = JSON.parse(this.responseText);
 				var table = document.getElementById("table");
-				for (var idx=json.length-1; idx>=0; idx--){					
+				for (var idx=json.length-1; idx>=0; idx--){	
+					// row
+					var div_row = document.createElement('div');
+					div_row.setAttribute('class', 'flex-row');
+					table.appendChild(div_row);
+
 					// icon
 					var div = document.createElement('div');
 					div.setAttribute('class', 'flex-item-1');
@@ -38,7 +43,7 @@
 						span.setAttribute('style', 'color: #4CAF50');
 					}
 					div.appendChild(span);
-					table.appendChild(div);
+					div_row.appendChild(div);
 					
 					// name
 					div = document.createElement('div');
@@ -49,7 +54,7 @@
 					a.setAttribute('class', 'button-small');
 					a.innerHTML = json[idx].name;
 					div.appendChild(a);
-					table.appendChild(div);
+					div_row.appendChild(div);
 					
 					// clone URL
 					div = document.createElement('div');
@@ -61,7 +66,7 @@
 					button.setAttribute('class', 'button-small');
 					button.innerHTML = json[idx].clone_url;
 					div.appendChild(button);
-					table.appendChild(div);
+					div_row.appendChild(div);
 					
 					// description
 					div = document.createElement('div');
@@ -71,7 +76,7 @@
 					} else {
 						div.innerHTML = '&nbsp;';
 					}
-					table.appendChild(div);
+					div_row.appendChild(div);
 				}
 			  }
 			};
