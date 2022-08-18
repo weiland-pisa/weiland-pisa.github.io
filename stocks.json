@@ -9,4 +9,7 @@ var etfs = [
 var stocks = [
 	{"name": "Apple", "url": "https://wertpapiere.ing.de/Investieren/Aktie/US0378331005"},
 	{"name": "IVU",   "url": "https://wertpapiere.ing.de/Investieren/Aktie/DE0007448508"}
+]
+var certificates = [
+	{"name": "EUWAX II", "url": "https://wertpapiere.ing.de/Investieren/Derivat/DE000EWG2LD7"}
 ];

@@ -1,6 +1,7 @@
 function insertAllLinks() {
 	insertLinks(etfs, 'etfs');
 	insertLinks(stocks, 'stocks');
+	insertLinks(certificates, 'certificates');
 }
 
 function insertLinks(json, tag) {
