@@ -175,6 +175,17 @@
   },
   "private" : true
 }, {
+  "name" : "GsonUtils",
+  "full_name" : "weiland-pisa/GsonUtils",
+  "html_url" : "https://github.com/weiland-pisa/GsonUtils",
+  "clone_url" : "https://github.com/weiland-pisa/GsonUtils.git",
+  "description" : "Utilities for the Gson API",
+  "owner" : {
+    "login" : "weiland-pisa",
+    "html_url" : "https://github.com/weiland-pisa"
+  },
+  "private" : true
+}, {
   "name" : "HandbrakeEncoder",
   "full_name" : "weiland-pisa/HandbrakeEncoder",
   "html_url" : "https://github.com/weiland-pisa/HandbrakeEncoder",
@@ -191,6 +202,17 @@
   "html_url" : "https://github.com/weiland-pisa/HexColor",
   "clone_url" : "https://github.com/weiland-pisa/HexColor.git",
   "description" : "Preview hexadecimal color values",
+  "owner" : {
+    "login" : "weiland-pisa",
+    "html_url" : "https://github.com/weiland-pisa"
+  },
+  "private" : true
+}, {
+  "name" : "HtmlFormat",
+  "full_name" : "weiland-pisa/HtmlFormat",
+  "html_url" : "https://github.com/weiland-pisa/HtmlFormat",
+  "clone_url" : "https://github.com/weiland-pisa/HtmlFormat.git",
+  "description" : "Format a HTML string",
   "owner" : {
     "login" : "weiland-pisa",
     "html_url" : "https://github.com/weiland-pisa"
@@ -373,6 +395,17 @@
   },
   "private" : true
 }, {
+  "name" : "SqlFormat",
+  "full_name" : "weiland-pisa/SqlFormat",
+  "html_url" : "https://github.com/weiland-pisa/SqlFormat",
+  "clone_url" : "https://github.com/weiland-pisa/SqlFormat.git",
+  "description" : "Format a SQL statement",
+  "owner" : {
+    "login" : "weiland-pisa",
+    "html_url" : "https://github.com/weiland-pisa"
+  },
+  "private" : true
+}, {
   "name" : "StockChart",
   "full_name" : "weiland-pisa/StockChart",
   "html_url" : "https://github.com/weiland-pisa/StockChart",
@@ -471,6 +504,28 @@
     "html_url" : "https://github.com/weiland-pisa"
   },
   "private" : false
+}, {
+  "name" : "Wiki",
+  "full_name" : "weiland-pisa/Wiki",
+  "html_url" : "https://github.com/weiland-pisa/Wiki",
+  "clone_url" : "https://github.com/weiland-pisa/Wiki.git",
+  "description" : "Cheat sheets in Markdown for Obsidian",
+  "owner" : {
+    "login" : "weiland-pisa",
+    "html_url" : "https://github.com/weiland-pisa"
+  },
+  "private" : true
+}, {
+  "name" : "WordlHelper",
+  "full_name" : "weiland-pisa/WordlHelper",
+  "html_url" : "https://github.com/weiland-pisa/WordlHelper",
+  "clone_url" : "https://github.com/weiland-pisa/WordlHelper.git",
+  "description" : "Dictionary for finding word for Wordl",
+  "owner" : {
+    "login" : "weiland-pisa",
+    "html_url" : "https://github.com/weiland-pisa"
+  },
+  "private" : true
 }, {
   "name" : "WorkingTime",
   "full_name" : "weiland-pisa/WorkingTime",
