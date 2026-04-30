@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punktetabelle</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f5f5f3;
+      color: #1a1a18;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .wrap { max-width: 960px; margin: 0 auto; }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 13px;
+      padding: 6px 14px;
+      border: 0.5px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      color: #1a1a18;
+    }
+    button:hover { background: #f0efea; }
+    button:active { transform: scale(0.98); }
+
+    .tbl-wrap {
+      overflow-x: auto;
+      border: 0.5px solid #dddbd2;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    col.row-col { width: 48px; }
+    col.player-col { width: calc((100% - 48px) / 6); }
+
+    thead tr { border-bottom: 0.5px solid #c8c6be; }
+    tfoot tr { border-top: 1px solid #b0aea6; background: #f5f5f3; }
+    tbody tr:not(:last-child) { border-bottom: 0.5px solid #dddbd2; }
+    tbody tr.empty-row { opacity: 0.45; }
+    tbody tr:not(.empty-row):hover { background: #f9f8f5; }
+
+    td, th { padding: 0; }
+
+    .row-num {
+      width: 48px;
+      text-align: center;
+      font-size: 12px;
+      color: #888780;
+      padding: 10px 4px;
+    }
+
+    .name-input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1a1a18;
+      padding: 10px;
+      text-align: center;
+      outline: none;
+    }
+    .name-input::placeholder { color: #b4b2a9; font-weight: 400; }
+    .name-input:focus { background: #e6f1fb; color: #185fa5; }
+
+    .score-input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-family: ui-monospace, monospace;
+      font-size: 14px;
+      color: #1a1a18;
+      padding: 9px 10px;
+      text-align: center;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    .score-input::-webkit-inner-spin-button,
+    .score-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .score-input:focus { background: #f0efea; }
+    .score-input.negative { color: #a32d2d; }
+
+    .total-cell {
+      text-align: center;
+      padding: 11px 10px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: ui-monospace, monospace;
+    }
+    .total-cell.positive { color: #3b6d11; }
+    .total-cell.negative { color: #a32d2d; }
+    .total-cell.zero { color: #888780; }
+
+    .rank-badge {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 500;
+      text-align: center;
+      line-height: 20px;
+      margin-right: 4px;
+    }
+    .rank-1 { background: #FAC775; color: #633806; }
+    .rank-2 { background: #D3D1C7; color: #2C2C2A; }
+    .rank-3 { background: #F0997B; color: #4A1B0C; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Punktetabelle</h1>
+  <div class="controls">
+    <button id="resetBtn">Zurücksetzen</button>
+  </div>
+  <div class="tbl-wrap">
+    <table id="scoreTable">
+      <colgroup>
+        <col class="row-col">
+        <col class="player-col"><col class="player-col"><col class="player-col">
+        <col class="player-col"><col class="player-col"><col class="player-col">
+      </colgroup>
+      <thead>
+        <tr>
+          <th><div class="row-num">#</div></th>
+          <th><input class="name-input" placeholder="Spieler 1" data-col="0"></th>
+          <th><input class="name-input" placeholder="Spieler 2" data-col="1"></th>
+          <th><input class="name-input" placeholder="Spieler 3" data-col="2"></th>
+          <th><input class="name-input" placeholder="Spieler 4" data-col="3"></th>
+          <th><input class="name-input" placeholder="Spieler 5" data-col="4"></th>
+          <th><input class="name-input" placeholder="Spieler 6" data-col="5"></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+      <tfoot>
+        <tr>
+          <td><div class="row-num" style="font-size:11px;">∑</div></td>
+          <td><div class="total-cell zero" id="t0">0</div></td>
+          <td><div class="total-cell zero" id="t1">0</div></td>
+          <td><div class="total-cell zero" id="t2">0</div></td>
+          <td><div class="total-cell zero" id="t3">0</div></td>
+          <td><div class="total-cell zero" id="t4">0</div></td>
+          <td><div class="total-cell zero" id="t5">0</div></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<script>
+  const tbody = document.getElementById('tbody');
+
+  function isRowEmpty(tr) {
+    return [...tr.querySelectorAll('.score-input')].every(i => i.value === '');
+  }
+
+  function ensureEmptyLastRow() {
+    const rows = [...tbody.querySelectorAll('tr')];
+    const last = rows[rows.length - 1];
+    if (!last || !isRowEmpty(last)) addRow();
+    renumberRows();
+  }
+
+  function renumberRows() {
+    let n = 0;
+    tbody.querySelectorAll('tr').forEach(tr => {
+      const num = tr.querySelector('.row-num');
+      if (isRowEmpty(tr)) {
+        num.textContent = '…';
+        tr.classList.add('empty-row');
+      } else {
+        n++;
+        num.textContent = n;
+        tr.classList.remove('empty-row');
+      }
+    });
+  }
+
+  function addRow() {
+    const tr = document.createElement('tr');
+    tr.classList.add('empty-row');
+    let cells = `<td><div class="row-num">…</div></td>`;
+    for (let c = 0; c < 6; c++) {
+      cells += `<td><input type="number" class="score-input" data-col="${c}" placeholder="—"></td>`;
+    }
+    tr.innerHTML = cells;
+    tbody.appendChild(tr);
+
+    tr.querySelectorAll('.score-input').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const v = parseFloat(inp.value);
+        inp.classList.toggle('negative', !isNaN(v) && v < 0);
+        ensureEmptyLastRow();
+        updateTotals();
+      });
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          const col = parseInt(inp.dataset.col);
+          const nextTr = col < 5 ? tr : tr.nextElementSibling;
+          const nextCol = col < 5 ? col + 1 : 0;
+          const target = nextTr ? nextTr.querySelectorAll('.score-input')[nextCol] : null;
+          if (target) target.focus();
+        }
+      });
+    });
+  }
+
+  function updateTotals() {
+    const totals = [0, 0, 0, 0, 0, 0];
+    const hasValue = [false, false, false, false, false, false];
+
+    tbody.querySelectorAll('.score-input').forEach(inp => {
+      const c = parseInt(inp.dataset.col);
+      const v = parseFloat(inp.value);
+      if (!isNaN(v)) { totals[c] += v; hasValue[c] = true; }
+    });
+
+    const ranked = totals
+      .map((v, i) => ({ v, i }))
+      .filter((_, i) => hasValue[i])
+      .sort((a, b) => b.v - a.v);
+
+    for (let c = 0; c < 6; c++) {
+      const el = document.getElementById('t' + c);
+      el.className = 'total-cell ' + (
+        totals[c] > 0 && hasValue[c] ? 'positive' :
+        totals[c] < 0 && hasValue[c] ? 'negative' : 'zero'
+      );
+      const rankPos = ranked.findIndex(r => r.i === c);
+      let badge = '';
+      if (rankPos === 0 && ranked.length > 1) badge = '<span class="rank-badge rank-1">1</span>';
+      else if (rankPos === 1) badge = '<span class="rank-badge rank-2">2</span>';
+      else if (rankPos === 2) badge = '<span class="rank-badge rank-3">3</span>';
+      el.innerHTML = badge + (hasValue[c] ? totals[c] : '0');
+    }
+  }
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (!confirm('Alle Punkte zurücksetzen?')) return;
+    tbody.innerHTML = '';
+    document.querySelectorAll('.name-input').forEach(i => i.value = '');
+    for (let c = 0; c < 6; c++) {
+      const el = document.getElementById('t' + c);
+      el.className = 'total-cell zero';
+      el.textContent = '0';
+    }
+    addRow();
+  });
+
+  addRow();
+</script>
+</body>
+</html>
