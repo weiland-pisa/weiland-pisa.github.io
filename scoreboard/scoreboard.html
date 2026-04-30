@@ -12,66 +12,54 @@
       background: #f5f5f3;
       color: #1a1a18;
       min-height: 100vh;
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem;
     }
 
-    h1 {
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 1.25rem;
-    }
+    h1 { font-size: 20px; font-weight: 500; margin-bottom: 1rem; }
 
     .wrap { max-width: 960px; margin: 0 auto; }
 
-    .controls {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 1.25rem;
-    }
+    .controls { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
 
     button {
       font-family: inherit;
       font-size: 13px;
-      padding: 6px 14px;
+      padding: 7px 14px;
       border: 0.5px solid #ccc;
       border-radius: 8px;
       background: #fff;
       cursor: pointer;
       color: #1a1a18;
+      white-space: nowrap;
     }
     button:hover { background: #f0efea; }
     button:active { transform: scale(0.98); }
+    button:disabled { opacity: 0.4; cursor: default; }
 
-    .tbl-wrap {
+    .tbl-outer {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       border: 0.5px solid #dddbd2;
       border-radius: 12px;
       background: #fff;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
-
-    col.row-col { width: 48px; }
-    col.player-col { width: calc((100% - 48px) / 6); }
+    table { border-collapse: collapse; table-layout: fixed; min-width: 100%; }
 
     thead tr { border-bottom: 0.5px solid #c8c6be; }
     tfoot tr { border-top: 1px solid #b0aea6; background: #f5f5f3; }
     tbody tr:not(:last-child) { border-bottom: 0.5px solid #dddbd2; }
-    tbody tr.empty-row { opacity: 0.45; }
+    tbody tr.empty-row { opacity: 0.4; }
     tbody tr:not(.empty-row):hover { background: #f9f8f5; }
 
     td, th { padding: 0; }
 
     .row-num {
-      width: 48px;
+      width: 36px;
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;
       color: #888780;
-      padding: 10px 4px;
+      padding: 10px 2px;
     }
 
     .name-input {
@@ -79,10 +67,10 @@
       border: none;
       background: transparent;
       font-family: inherit;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       color: #1a1a18;
-      padding: 10px;
+      padding: 10px 6px;
       text-align: center;
       outline: none;
     }
@@ -94,9 +82,9 @@
       border: none;
       background: transparent;
       font-family: ui-monospace, monospace;
-      font-size: 14px;
+      font-size: 13px;
       color: #1a1a18;
-      padding: 9px 10px;
+      padding: 9px 4px;
       text-align: center;
       outline: none;
       -moz-appearance: textfield;
@@ -104,175 +92,196 @@
     .score-input::-webkit-inner-spin-button,
     .score-input::-webkit-outer-spin-button { -webkit-appearance: none; }
     .score-input:focus { background: #f0efea; }
-    .score-input.negative { color: #a32d2d; }
+    .score-input.neg { color: #a32d2d; }
 
     .total-cell {
       text-align: center;
-      padding: 11px 10px;
-      font-size: 15px;
+      padding: 10px 4px;
+      font-size: 14px;
       font-weight: 500;
       font-family: ui-monospace, monospace;
     }
-    .total-cell.positive { color: #3b6d11; }
-    .total-cell.negative { color: #a32d2d; }
+    .total-cell.pos { color: #3b6d11; }
+    .total-cell.neg { color: #a32d2d; }
     .total-cell.zero { color: #888780; }
 
     .rank-badge {
       display: inline-block;
-      width: 20px;
-      height: 20px;
+      width: 18px; height: 18px;
       border-radius: 50%;
-      font-size: 11px;
-      font-weight: 500;
-      text-align: center;
-      line-height: 20px;
-      margin-right: 4px;
+      font-size: 10px; font-weight: 500;
+      text-align: center; line-height: 18px;
+      margin-right: 2px;
     }
-    .rank-1 { background: #FAC775; color: #633806; }
-    .rank-2 { background: #D3D1C7; color: #2C2C2A; }
-    .rank-3 { background: #F0997B; color: #4A1B0C; }
+    .r1 { background: #FAC775; color: #633806; }
+    .r2 { background: #D3D1C7; color: #2C2C2A; }
+    .r3 { background: #F0997B; color: #4A1B0C; }
   </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Punktetabelle</h1>
   <div class="controls">
+    <button id="addPlayerBtn">+ Spieler hinzufügen</button>
     <button id="resetBtn">Zurücksetzen</button>
   </div>
-  <div class="tbl-wrap">
-    <table id="scoreTable">
-      <colgroup>
-        <col class="row-col">
-        <col class="player-col"><col class="player-col"><col class="player-col">
-        <col class="player-col"><col class="player-col"><col class="player-col">
-      </colgroup>
-      <thead>
-        <tr>
-          <th><div class="row-num">#</div></th>
-          <th><input class="name-input" placeholder="Spieler 1" data-col="0"></th>
-          <th><input class="name-input" placeholder="Spieler 2" data-col="1"></th>
-          <th><input class="name-input" placeholder="Spieler 3" data-col="2"></th>
-          <th><input class="name-input" placeholder="Spieler 4" data-col="3"></th>
-          <th><input class="name-input" placeholder="Spieler 5" data-col="4"></th>
-          <th><input class="name-input" placeholder="Spieler 6" data-col="5"></th>
-        </tr>
-      </thead>
+  <div class="tbl-outer">
+    <table id="tbl">
+      <thead><tr id="headRow"></tr></thead>
       <tbody id="tbody"></tbody>
-      <tfoot>
-        <tr>
-          <td><div class="row-num" style="font-size:11px;">∑</div></td>
-          <td><div class="total-cell zero" id="t0">0</div></td>
-          <td><div class="total-cell zero" id="t1">0</div></td>
-          <td><div class="total-cell zero" id="t2">0</div></td>
-          <td><div class="total-cell zero" id="t3">0</div></td>
-          <td><div class="total-cell zero" id="t4">0</div></td>
-          <td><div class="total-cell zero" id="t5">0</div></td>
-        </tr>
-      </tfoot>
+      <tfoot><tr id="footRow"></tr></tfoot>
     </table>
   </div>
 </div>
 
 <script>
+  const MAX_PLAYERS = 10;
+  let playerCount = 4;
+  const headRow = document.getElementById('headRow');
   const tbody = document.getElementById('tbody');
+  const footRow = document.getElementById('footRow');
+  let savedNames = [];
+
+  function colWidth() {
+    return playerCount <= 5
+      ? Math.floor((100 - 8) / playerCount) + '%'
+      : '80px';
+  }
+
+  function buildHeader() {
+    headRow.innerHTML = '';
+    const numTh = document.createElement('th');
+    numTh.style.width = '36px';
+    numTh.innerHTML = '<div class="row-num">#</div>';
+    headRow.appendChild(numTh);
+    for (let c = 0; c < playerCount; c++) {
+      const th = document.createElement('th');
+      th.style.width = colWidth();
+      th.innerHTML = `<input class="name-input" placeholder="Spieler ${c + 1}" data-col="${c}" value="${savedNames[c] || ''}">`;
+      headRow.appendChild(th);
+    }
+    headRow.querySelectorAll('.name-input').forEach(inp => {
+      inp.addEventListener('input', () => { savedNames[parseInt(inp.dataset.col)] = inp.value; });
+    });
+  }
+
+  function buildFoot() {
+    footRow.innerHTML = '';
+    const td0 = document.createElement('td');
+    td0.innerHTML = '<div class="row-num" style="font-size:10px;">∑</div>';
+    footRow.appendChild(td0);
+    for (let c = 0; c < playerCount; c++) {
+      const td = document.createElement('td');
+      td.innerHTML = `<div class="total-cell zero" id="t${c}">0</div>`;
+      footRow.appendChild(td);
+    }
+  }
 
   function isRowEmpty(tr) {
     return [...tr.querySelectorAll('.score-input')].every(i => i.value === '');
   }
 
-  function ensureEmptyLastRow() {
-    const rows = [...tbody.querySelectorAll('tr')];
-    const last = rows[rows.length - 1];
-    if (!last || !isRowEmpty(last)) addRow();
-    renumberRows();
-  }
-
-  function renumberRows() {
+  function renumber() {
     let n = 0;
     tbody.querySelectorAll('tr').forEach(tr => {
       const num = tr.querySelector('.row-num');
-      if (isRowEmpty(tr)) {
-        num.textContent = '…';
-        tr.classList.add('empty-row');
-      } else {
-        n++;
-        num.textContent = n;
-        tr.classList.remove('empty-row');
-      }
+      if (isRowEmpty(tr)) { num.textContent = '…'; tr.classList.add('empty-row'); }
+      else { n++; num.textContent = n; tr.classList.remove('empty-row'); }
+    });
+  }
+
+  function ensureEmptyLast() {
+    const rows = [...tbody.querySelectorAll('tr')];
+    if (!rows.length || !isRowEmpty(rows[rows.length - 1])) addRow();
+    renumber();
+  }
+
+  function attachRowEvents(tr) {
+    tr.querySelectorAll('.score-input').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const v = parseFloat(inp.value);
+        inp.classList.toggle('neg', !isNaN(v) && v < 0);
+        ensureEmptyLast();
+        updateTotals();
+      });
+      inp.addEventListener('keydown', e => {
+        if (e.key !== 'Enter') return;
+        const col = parseInt(inp.dataset.col);
+        const nextTr = col < playerCount - 1 ? tr : tr.nextElementSibling;
+        const nextCol = col < playerCount - 1 ? col + 1 : 0;
+        const target = nextTr ? nextTr.querySelectorAll('.score-input')[nextCol] : null;
+        if (target) target.focus();
+      });
     });
   }
 
   function addRow() {
     const tr = document.createElement('tr');
     tr.classList.add('empty-row');
-    let cells = `<td><div class="row-num">…</div></td>`;
-    for (let c = 0; c < 6; c++) {
-      cells += `<td><input type="number" class="score-input" data-col="${c}" placeholder="—"></td>`;
+    let cells = '<td><div class="row-num">…</div></td>';
+    for (let c = 0; c < playerCount; c++) {
+      cells += `<td style="min-width:70px;width:${colWidth()}"><input type="number" class="score-input" data-col="${c}" placeholder="—"></td>`;
     }
     tr.innerHTML = cells;
     tbody.appendChild(tr);
-
-    tr.querySelectorAll('.score-input').forEach(inp => {
-      inp.addEventListener('input', () => {
-        const v = parseFloat(inp.value);
-        inp.classList.toggle('negative', !isNaN(v) && v < 0);
-        ensureEmptyLastRow();
-        updateTotals();
-      });
-      inp.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-          const col = parseInt(inp.dataset.col);
-          const nextTr = col < 5 ? tr : tr.nextElementSibling;
-          const nextCol = col < 5 ? col + 1 : 0;
-          const target = nextTr ? nextTr.querySelectorAll('.score-input')[nextCol] : null;
-          if (target) target.focus();
-        }
-      });
-    });
+    attachRowEvents(tr);
   }
 
   function updateTotals() {
-    const totals = [0, 0, 0, 0, 0, 0];
-    const hasValue = [false, false, false, false, false, false];
-
+    const totals = Array(playerCount).fill(0);
+    const hasVal = Array(playerCount).fill(false);
     tbody.querySelectorAll('.score-input').forEach(inp => {
       const c = parseInt(inp.dataset.col);
+      if (c >= playerCount) return;
       const v = parseFloat(inp.value);
-      if (!isNaN(v)) { totals[c] += v; hasValue[c] = true; }
+      if (!isNaN(v)) { totals[c] += v; hasVal[c] = true; }
     });
-
-    const ranked = totals
-      .map((v, i) => ({ v, i }))
-      .filter((_, i) => hasValue[i])
-      .sort((a, b) => b.v - a.v);
-
-    for (let c = 0; c < 6; c++) {
+    const ranked = totals.map((v, i) => ({ v, i })).filter((_, i) => hasVal[i]).sort((a, b) => b.v - a.v);
+    for (let c = 0; c < playerCount; c++) {
       const el = document.getElementById('t' + c);
-      el.className = 'total-cell ' + (
-        totals[c] > 0 && hasValue[c] ? 'positive' :
-        totals[c] < 0 && hasValue[c] ? 'negative' : 'zero'
-      );
-      const rankPos = ranked.findIndex(r => r.i === c);
+      if (!el) continue;
+      const cls = totals[c] > 0 && hasVal[c] ? 'pos' : totals[c] < 0 && hasVal[c] ? 'neg' : 'zero';
+      el.className = 'total-cell ' + cls;
+      const rp = ranked.findIndex(r => r.i === c);
       let badge = '';
-      if (rankPos === 0 && ranked.length > 1) badge = '<span class="rank-badge rank-1">1</span>';
-      else if (rankPos === 1) badge = '<span class="rank-badge rank-2">2</span>';
-      else if (rankPos === 2) badge = '<span class="rank-badge rank-3">3</span>';
-      el.innerHTML = badge + (hasValue[c] ? totals[c] : '0');
+      if (rp === 0 && ranked.length > 1) badge = '<span class="rank-badge r1">1</span>';
+      else if (rp === 1) badge = '<span class="rank-badge r2">2</span>';
+      else if (rp === 2) badge = '<span class="rank-badge r3">3</span>';
+      el.innerHTML = badge + (hasVal[c] ? totals[c] : '0');
     }
   }
 
+  function addPlayerColumn() {
+    if (playerCount >= MAX_PLAYERS) return;
+    playerCount++;
+    buildHeader();
+    buildFoot();
+    tbody.querySelectorAll('tr').forEach(tr => {
+      const c = playerCount - 1;
+      const td = document.createElement('td');
+      td.style.cssText = `min-width:70px;width:${colWidth()}`;
+      td.innerHTML = `<input type="number" class="score-input" data-col="${c}" placeholder="—">`;
+      tr.appendChild(td);
+      attachRowEvents(tr);
+    });
+    if (playerCount >= MAX_PLAYERS) document.getElementById('addPlayerBtn').disabled = true;
+    updateTotals();
+  }
+
+  document.getElementById('addPlayerBtn').addEventListener('click', addPlayerColumn);
   document.getElementById('resetBtn').addEventListener('click', () => {
     if (!confirm('Alle Punkte zurücksetzen?')) return;
+    playerCount = 4;
+    savedNames = [];
     tbody.innerHTML = '';
-    document.querySelectorAll('.name-input').forEach(i => i.value = '');
-    for (let c = 0; c < 6; c++) {
-      const el = document.getElementById('t' + c);
-      el.className = 'total-cell zero';
-      el.textContent = '0';
-    }
+    buildHeader();
+    buildFoot();
     addRow();
+    document.getElementById('addPlayerBtn').disabled = false;
   });
 
+  buildHeader();
+  buildFoot();
   addRow();
 </script>
 </body>
