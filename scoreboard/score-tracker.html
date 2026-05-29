@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Score Tracker</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #0a0a0a;
+    --muted: #f4f4f5;
+    --muted-fg: #71717a;
+    --border: #e4e4e7;
+    --card: #ffffff;
+    --primary: #18181b;
+    --primary-fg: #fafafa;
+    --destructive: #dc2626;
+    --gold: #eab308;
+    --silver: #a1a1aa;
+    --bronze: #b45309;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+  }
+  .container { max-width: 72rem; margin: 0 auto; padding: 2.5rem 1rem; }
+  h1 { font-size: 1.875rem; font-weight: 700; margin: 0 0 2rem; letter-spacing: -0.025em; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  input {
+    border: 1px solid var(--border);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    background: var(--bg);
+    color: var(--fg);
+    height: 2.25rem;
+  }
+  input:focus { outline: 2px solid var(--primary); outline-offset: -1px; }
+  input[type="number"] { width: 6rem; }
+  .name-input { width: 8rem; height: 2rem; padding: 0.25rem 0.5rem; }
+  button {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    border: 1px solid var(--border);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: var(--bg);
+    color: var(--fg);
+    cursor: pointer;
+    height: 2.25rem;
+  }
+  button:hover { background: var(--muted); }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.primary { background: var(--primary); color: var(--primary-fg); border-color: var(--primary); }
+  button.primary:hover { background: #27272a; }
+  button.secondary { background: var(--muted); }
+  button.destructive { background: var(--destructive); color: white; border-color: var(--destructive); }
+  button.destructive:hover { background: #b91c1c; }
+  button.icon { padding: 0; width: 1.75rem; height: 1.75rem; justify-content: center; border: none; background: transparent; }
+  button.icon:hover { background: var(--muted); }
+  .empty {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--card);
+    padding: 5rem 1rem;
+    text-align: center;
+    color: var(--muted-fg);
+  }
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--card);
+    overflow-x: auto;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  thead tr { background: #fafafa; border-bottom: 1px solid var(--border); }
+  th { text-align: left; padding: 0.75rem 1rem; font-weight: 600; color: var(--muted-fg); }
+  td { padding: 0.5rem 1rem; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tfoot tr { border-top: 2px solid var(--border); background: #fafafa; }
+  tfoot td { padding: 0.75rem 1rem; font-weight: 600; }
+  .total { font-size: 1.125rem; font-weight: 700; }
+  .medal { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; font-weight: 600; }
+  .gold { color: var(--gold); }
+  .silver { color: var(--silver); }
+  .bronze { color: var(--bronze); }
+  .row-flex { display: flex; align-items: center; gap: 0.5rem; }
+  .round-num { color: var(--muted-fg); font-weight: 500; }
+  svg { width: 1rem; height: 1rem; }
+  .trophy { width: 1.25rem; height: 1.25rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Score Tracker</h1>
+  <div class="toolbar">
+    <input id="playerName" placeholder="New player name" style="max-width: 16rem;" />
+    <button class="primary" onclick="addPlayer()">＋ Add player</button>
+    <button class="secondary" id="addRoundBtn" onclick="addRound()" disabled>＋ Add round</button>
+    <button onclick="clearRounds()">⌫ Clear rounds</button>
+    <button class="destructive" onclick="resetAll()">↻ Reset all</button>
+  </div>
+  <div id="root"></div>
+</div>
+
+<script>
+  let players = []; // { id, name }
+  let rounds = [];  // [{ playerId: "value" }]
+
+  const uid = () => (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2));
+
+  const nameInput = document.getElementById('playerName');
+  nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addPlayer(); });
+
+  function addPlayer() {
+    const name = nameInput.value.trim() || `Player ${players.length + 1}`;
+    players.push({ id: uid(), name });
+    nameInput.value = '';
+    if (players.length === 1) rounds = [{}];
+    render();
+  }
+  function removePlayer(id) {
+    players = players.filter(p => p.id !== id);
+    rounds = rounds.map(r => { const c = {...r}; delete c[id]; return c; });
+    if (players.length === 0) rounds = [];
+    render();
+  }
+  function renamePlayer(id, name) {
+    const p = players.find(p => p.id === id);
+    if (p) p.name = name;
+  }
+  function addRound() { rounds.push({}); render(); }
+  function removeRound(idx) {
+    if (rounds.length <= 1) rounds = players.length > 0 ? [{}] : [];
+    else rounds.splice(idx, 1);
+    render();
+  }
+  function clearRounds() { rounds = players.length > 0 ? [{}] : []; render(); }
+  function resetAll() { players = []; rounds = []; nameInput.value = ''; render(); }
+  function updateCell(idx, pid, val) { rounds[idx][pid] = val; updateTotals(); }
+
+  function computeTotals() {
+    const totals = players.map(p => ({
+      player: p,
+      total: rounds.reduce((s, r) => s + (parseFloat(r[p.id] ?? '') || 0), 0),
+    }));
+    const sorted = [...totals].sort((a, b) => b.total - a.total);
+    const places = new Map();
+    sorted.forEach((t, i) => {
+      if (i === 0) places.set(t.player.id, 1);
+      else {
+        const prev = sorted[i - 1];
+        places.set(t.player.id, prev.total === t.total ? places.get(prev.player.id) : i + 1);
+      }
+    });
+    return { totals, places };
+  }
+
+  function medalFor(place) {
+    if (place === 1) return { cls: 'gold', label: '1st' };
+    if (place === 2) return { cls: 'silver', label: '2nd' };
+    if (place === 3) return { cls: 'bronze', label: '3rd' };
+    return null;
+  }
+
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function updateTotals() {
+    const { totals, places } = computeTotals();
+    players.forEach(p => {
+      const cell = document.getElementById('total-' + p.id);
+      if (!cell) return;
+      const total = totals.find(t => t.player.id === p.id).total;
+      const m = medalFor(places.get(p.id));
+      cell.innerHTML = `<div class="row-flex"><span class="total">${total}</span>${m ? `<span class="medal ${m.cls}">🏆 ${m.label}</span>` : ''}</div>`;
+    });
+  }
+
+  function render() {
+    document.getElementById('addRoundBtn').disabled = players.length === 0;
+    const root = document.getElementById('root');
+    if (players.length === 0) {
+      root.innerHTML = `<div class="empty">No players yet. Add a player above to start tracking scores.</div>`;
+      return;
+    }
+    const { totals, places } = computeTotals();
+    const head = `<tr>
+      <th>Round</th>
+      ${players.map(p => `<th>
+        <div class="row-flex">
+          <input class="name-input" value="${esc(p.name)}" oninput="renamePlayer('${p.id}', this.value)" />
+          <button class="icon" title="Remove player" onclick="removePlayer('${p.id}')">🗑</button>
+        </div>
+      </th>`).join('')}
+      <th style="width:2.5rem"></th>
+    </tr>`;
+    const body = rounds.map((r, idx) => `<tr>
+      <td class="round-num">#${idx + 1}</td>
+      ${players.map(p => `<td><input type="number" placeholder="0" value="${esc(r[p.id] ?? '')}" oninput="updateCell(${idx}, '${p.id}', this.value)" /></td>`).join('')}
+      <td><button class="icon" title="Remove round" onclick="removeRound(${idx})">🗑</button></td>
+    </tr>`).join('');
+    const foot = `<tr>
+      <td>Total</td>
+      ${players.map(p => {
+        const total = totals.find(t => t.player.id === p.id).total;
+        const m = medalFor(places.get(p.id));
+        return `<td id="total-${p.id}"><div class="row-flex"><span class="total">${total}</span>${m ? `<span class="medal ${m.cls}">🏆 ${m.label}</span>` : ''}</div></td>`;
+      }).join('')}
+      <td></td>
+    </tr>`;
+    root.innerHTML = `<div class="table-wrap"><table>
+      <thead>${head}</thead>
+      <tbody>${body}</tbody>
+      <tfoot>${foot}</tfoot>
+    </table></div>`;
+  }
+
+  render();
+</script>
+</body>
+</html>
