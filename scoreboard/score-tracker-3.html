@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Card Game Score Tracker</title>
+<meta name="description" content="Track points across rounds for any card game with live totals and medal rankings." />
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  :root {
+    --bg: oklch(0.955 0.025 85);
+    --fg: oklch(0.28 0.04 50);
+    --card: oklch(0.975 0.02 85);
+    --muted: oklch(0.92 0.025 82);
+    --muted-fg: oklch(0.5 0.04 55);
+    --border: oklch(0.85 0.035 75);
+    --primary: oklch(0.42 0.07 50);
+    --primary-fg: oklch(0.97 0.02 85);
+    --secondary: oklch(0.91 0.03 80);
+    --destructive: oklch(0.5 0.18 30);
+    --destructive-fg: oklch(0.97 0.02 85);
+    --ring: oklch(0.55 0.07 55);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 72rem; margin: 0 auto; padding: 2.5rem 1rem; }
+  h1 { font-size: 1.875rem; font-weight: 700; margin: 0 0 1.5rem; letter-spacing: -0.02em; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  input {
+    height: 2.25rem; padding: 0 0.75rem; border-radius: 0.375rem;
+    border: 1px solid var(--border); background: var(--card); color: var(--fg);
+    font: inherit; font-size: 0.875rem; outline: none;
+  }
+  input:focus { box-shadow: 0 0 0 1px var(--ring); }
+  .input-name { max-width: 18rem; }
+  .input-cell { width: 6rem; height: 2.25rem; }
+  .input-header { width: 8rem; height: 2rem; }
+  button {
+    display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;
+    height: 2.25rem; padding: 0 1rem; border-radius: 0.375rem;
+    border: 1px solid transparent; font: inherit; font-size: 0.875rem; font-weight: 500;
+    background: var(--primary); color: var(--primary-fg); transition: opacity 0.15s;
+  }
+  button:hover { opacity: 0.9; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.secondary { background: var(--secondary); color: var(--fg); }
+  button.outline { background: var(--card); color: var(--fg); border-color: var(--border); }
+  button.destructive { background: var(--destructive); color: var(--destructive-fg); }
+  button.ghost { background: transparent; color: var(--fg); height: 1.75rem; width: 1.75rem; padding: 0; justify-content: center; }
+  button.ghost:hover { background: var(--muted); }
+  .empty {
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border); background: var(--card);
+    border-radius: 0.5rem; padding: 5rem 1rem; color: var(--muted-fg);
+  }
+  .table-wrap { border: 1px solid var(--border); background: var(--card); border-radius: 0.5rem; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th, td { padding: 0.5rem 1rem; text-align: left; }
+  thead tr { background: color-mix(in oklab, var(--muted) 50%, transparent); border-bottom: 1px solid var(--border); }
+  thead th { font-weight: 600; color: var(--muted-fg); padding: 0.75rem 1rem; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tfoot tr { border-top: 2px solid var(--border); background: color-mix(in oklab, var(--muted) 50%, transparent); }
+  tfoot td { padding: 0.75rem 1rem; font-weight: 600; }
+  .total { font-size: 1.125rem; font-weight: 700; }
+  .medal { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; font-weight: 600; }
+  .gold { color: #eab308; } .silver { color: #a1a1aa; } .bronze { color: #b45309; }
+  .row-flex { display: flex; align-items: center; gap: 0.5rem; }
+  /* Modal */
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; z-index: 50; }
+  .overlay.open { display: block; }
+  .modal {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 100%; max-width: 32rem; background: var(--bg); color: var(--fg);
+    border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem;
+    z-index: 51; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: none;
+  }
+  .modal.open { display: block; }
+  .modal h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 600; }
+  .modal p { margin: 0 0 1.25rem; font-size: 0.875rem; color: var(--muted-fg); }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+  .icon { width: 1rem; height: 1rem; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-lg { width: 1.25rem; height: 1.25rem; fill: currentColor; stroke: none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-type="module">
+const { useState } = React;
+
+const Icon = ({ d, className = "icon" }) => (
+  <svg className={className} viewBox="0 0 24 24"><path d={d} /></svg>
+);
+const IPlus = () => <Icon d="M12 5v14M5 12h14" />;
+const ITrash = () => <Icon d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6" />;
+const IReset = () => <Icon d="M3 12a9 9 0 109-9M3 3v6h6" />;
+const IEraser = () => <Icon d="M20 20H7L3 16a2 2 0 010-3l9-9a2 2 0 013 0l6 6a2 2 0 010 3l-7 7" />;
+const ITrophy = () => (
+  <svg className="icon-lg" viewBox="0 0 24 24"><path d="M7 4h10v4a5 5 0 01-10 0V4zM5 4H3v2a3 3 0 003 3M19 4h2v2a3 3 0 01-3 3M9 16h6v2H9zM8 20h8v2H8z"/></svg>
+);
+
+function ConfirmModal({ open, title, desc, confirmLabel, danger, onConfirm, onCancel }) {
+  if (!open) return null;
+  return (
+    <>
+      <div className="overlay open" onClick={onCancel} />
+      <div className="modal open" role="alertdialog">
+        <h2>{title}</h2>
+        <p>{desc}</p>
+        <div className="modal-actions">
+          <button className="outline" onClick={onCancel}>Cancel</button>
+          <button className={danger ? "destructive" : ""} onClick={onConfirm}>{confirmLabel}</button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function App() {
+  const [players, setPlayers] = useState([]);
+  const [rounds, setRounds] = useState([]);
+  const [newName, setNewName] = useState("");
+  const [confirm, setConfirm] = useState(null);
+
+  const addPlayer = () => {
+    const name = newName.trim() || `Player ${players.length + 1}`;
+    const next = [...players, { id: crypto.randomUUID(), name }];
+    setPlayers(next);
+    setNewName("");
+    if (next.length === 1) setRounds([{}]);
+  };
+  const removePlayer = (id) => {
+    const next = players.filter(p => p.id !== id);
+    setPlayers(next);
+    setRounds(rounds.map(r => { const { [id]: _, ...rest } = r; return rest; }));
+    if (next.length === 0) setRounds([]);
+  };
+  const addRound = () => setRounds([...rounds, {}]);
+  const removeRound = (i) =>
+    setRounds(rounds.length <= 1 ? (players.length > 0 ? [{}] : []) : rounds.filter((_, idx) => idx !== i));
+  const clearRounds = () => setRounds(players.length > 0 ? [{}] : []);
+  const resetAll = () => { setPlayers([]); setRounds([]); setNewName(""); };
+  const updateCell = (ri, pid, v) => {
+    const next = [...rounds]; next[ri] = { ...next[ri], [pid]: v }; setRounds(next);
+  };
+
+  const totals = players.map(p => ({
+    player: p,
+    total: rounds.reduce((s, r) => s + (parseFloat(r[p.id] ?? "") || 0), 0),
+  }));
+  const sorted = [...totals].sort((a, b) => b.total - a.total);
+  const place = new Map();
+  sorted.forEach((t, i) => {
+    if (i === 0) place.set(t.player.id, 1);
+    else {
+      const prev = sorted[i - 1];
+      place.set(t.player.id, prev.total === t.total ? place.get(prev.player.id) : i + 1);
+    }
+  });
+  const medalFor = (p) => p === 1 ? { c: "gold", l: "1st" } : p === 2 ? { c: "silver", l: "2nd" } : p === 3 ? { c: "bronze", l: "3rd" } : null;
+
+  return (
+    <div className="wrap">
+      <h1>Score Tracker</h1>
+      <div className="toolbar">
+        <input className="input-name" placeholder="New player name" value={newName}
+          onChange={e => setNewName(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && addPlayer()} />
+        <button onClick={addPlayer}><IPlus /> Add player</button>
+        <button className="secondary" onClick={addRound} disabled={players.length === 0}><IPlus /> Add round</button>
+        <button className="outline" onClick={() => setConfirm("clear")}><IEraser /> Clear rounds</button>
+        <button className="destructive" onClick={() => setConfirm("reset")}><IReset /> Reset all</button>
+      </div>
+
+      {players.length === 0 ? (
+        <div className="empty">No players yet. Add a player above to start tracking scores.</div>
+      ) : (
+        <div className="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Round</th>
+                {players.map(p => (
+                  <th key={p.id}>
+                    <div className="row-flex">
+                      <input className="input-header" value={p.name}
+                        onChange={e => setPlayers(players.map(pl => pl.id === p.id ? { ...pl, name: e.target.value } : pl))} />
+                      <button className="ghost" onClick={() => removePlayer(p.id)}><ITrash /></button>
+                    </div>
+                  </th>
+                ))}
+                <th style={{ width: "2.5rem" }}></th>
+              </tr>
+            </thead>
+            <tbody>
+              {rounds.map((round, idx) => (
+                <tr key={idx}>
+                  <td style={{ color: "var(--muted-fg)", fontWeight: 500 }}>#{idx + 1}</td>
+                  {players.map(p => (
+                    <td key={p.id}>
+                      <input type="number" className="input-cell" placeholder="0"
+                        value={round[p.id] ?? ""}
+                        onChange={e => updateCell(idx, p.id, e.target.value)} />
+                    </td>
+                  ))}
+                  <td><button className="ghost" onClick={() => removeRound(idx)}><ITrash /></button></td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>Total</td>
+                {players.map(p => {
+                  const t = totals.find(x => x.player.id === p.id).total;
+                  const m = medalFor(place.get(p.id));
+                  return (
+                    <td key={p.id}>
+                      <div className="row-flex">
+                        <span className="total">{t}</span>
+                        {m && <span className={`medal ${m.c}`}><ITrophy /> {m.l}</span>}
+                      </div>
+                    </td>
+                  );
+                })}
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      )}
+
+      <ConfirmModal open={confirm === "clear"} title="Clear all rounds?"
+        desc="This will delete all round scores but keep your players. You cannot undo this action."
+        confirmLabel="Clear rounds"
+        onCancel={() => setConfirm(null)}
+        onConfirm={() => { clearRounds(); setConfirm(null); }} />
+      <ConfirmModal open={confirm === "reset"} title="Reset everything?"
+        desc="This will remove all players and all round scores. You cannot undo this action."
+        confirmLabel="Reset all" danger
+        onCancel={() => setConfirm(null)}
+        onConfirm={() => { resetAll(); setConfirm(null); }} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
